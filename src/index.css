@@ -2,4 +2,10 @@
 
 body{
     overflow-x: hidden;
+    background: #000;
+}
+
+@font-face {
+    font-family: font1;
+    src: url("../public/Fonts/AvanttTRIAL-Heavy.otf");
 }
