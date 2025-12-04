@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import HomePage from './Pages/HomePage';
-import CanvasScroll from './Pages/CanvasScroll';
 import Lenis from '@studio-freight/lenis';
 
 const App = () => {
