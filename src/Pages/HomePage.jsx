@@ -4,7 +4,7 @@ import STintro from './Loader/STintro/STintro'
 
 const HomePage = () => {
   return (
-    <div className='h-[100dvh] w-[100vw] bg-red-700'>{<STintro />}</div>
+    <div className='h-[100dvh] w-[100vw] overflow-hidden bg-red-700'>{<STintro />}</div>
   )
 }
 

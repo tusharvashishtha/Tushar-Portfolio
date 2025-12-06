@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import HomePage from './Pages/HomePage';
 import Lenis from '@studio-freight/lenis';
 
+
 const App = () => {
   useEffect(() => {
     const lenis = new Lenis({

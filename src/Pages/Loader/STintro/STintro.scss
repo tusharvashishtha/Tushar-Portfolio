@@ -4,8 +4,8 @@ $desired-ratio-x: 16;
 $desired-ratio: #{$desired-ratio-x} / #{$desired-ratio-y};
 $desired-ratio-multiplier: $desired-ratio-y / $desired-ratio-x;
 
-$color-bg: #000;
-$color-title: #C11B1F;
+$color-bg: #000000;
+$color-title: #ff0000;
 $color-credits: #C8C6C7;
 $color-credits-top: #D2D0D1;
 $color-credits-bottom: $color-credits;
@@ -16,7 +16,7 @@ $font-credits: Arial,Helvetica Neue,Helvetica,sans-serif;
 $title-fsize: 28vmin;
 $title-fsize-large: 34vmin;
 $title-spacing: -1.3vmin;
-$title-stroke: 0.4vmin;
+$title-stroke: 2.8vmin;
 $title-shadow: 2vmin;
 
 $titlebar-height: 1vmin;
@@ -86,6 +86,7 @@ $credits-shadow-blur: 0.15vmin;
        url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/161676/BenguiatProITC-BoldCond.ttf') format('truetype');
   font-style: normal;
   font-weight: bold;
+
 }
 
 // Styles
@@ -109,6 +110,7 @@ body {
   max-width: 440px;
   @include centerize;
   transition: opacity 600ms ease, visibility 0ms linear 800ms;
+
 
   &--hide {
     opacity: 0;
@@ -134,52 +136,6 @@ body {
       display: block;
     }
 
-    &-button {
-      display: inline-block;
-      vertical-align: top;
-      cursor: pointer;
-      padding: 0;
-      margin: 20px 5px 0;
-      width: 160px;
-      height: 42px;
-      line-height: 42px;
-      border: none;
-      text-decoration: none;
-      font-size: 16px;
-      border-radius: 4px;
-      font-family: $font-credits;
-      background: $color-title;
-      color: #FFF;
-
-      &:hover {
-        background: darken($color-title, 10%);
-      }
-    }
-
-    &-play {
-      display: block;
-      cursor: pointer;
-      width: 120px;
-      height: 120px;
-      margin: 30px auto 0;
-      border: 4px solid #FFF;
-      font-size: 40px;
-      text-indent: 10px;
-      color: #FFF;
-      background: rgba(#555, 0.2);
-      opacity: 0.3;
-      border-radius: 100%;
-      transition: color 100ms ease, opacity 100ms ease;
-      transform: translateZ(0);
-
-      &:hover,
-      &:focus,
-      &:active {
-        opacity: 1;
-        color: $color-title;
-        outline: 0;
-      }
-    }
   }
 }
 
@@ -259,141 +215,19 @@ body {
 
   &--left,
   &--right {
-    top: 90%;
+    top: 75%;
   }
 
   &--left {
-    left: 0;
-    right: -12%;
+    left: -140%;
+    right: 100%;
   }
   &--right {
-    left: -15%;
-    right: 0;
+    left: 110%;
+    right: -100%;
   }
 }
 
-
-.credits {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  font-family: $font-credits;
-  font-weight: bold;
-  @include v-rule(font-size, $credits-fsize);
-
-
-  $wiggle: 0.015vmin;
-  @keyframes credits-wiggle {
-    0%  { transform: translateX(-50%) translateY(-50%) translateX(0)        translateY(0);        }
-    20% { transform: translateX(-50%) translateY(-50%) translateX(0)        translateY(-$wiggle); }
-    40% { transform: translateX(-50%) translateY(-50%) translateX($wiggle)  translateY(-$wiggle); }
-    60% { transform: translateX(-50%) translateY(-50%) translateX(0)        translateY($wiggle);  }
-    80% { transform: translateX(-50%) translateY(-50%) translateX(-$wiggle) translateY(0);        }
-    100%{ transform: translateX(-50%) translateY(-50%) translateX(-$wiggle) translateY($wiggle);  }
-  }
-  @keyframes credits-flash {
-    0%, 30%   { opacity: 1;    }
-    40%       { opacity: 0.97; }
-    42%, 85%  { opacity: 1;    }
-    92%       { opacity: 0.94; }
-    94%, 100% { opacity: 1;    }
-  }
-  &-group,
-  &-final {
-    @include centerize;
-    width: 90%;
-    opacity: 0;
-    transition: opacity $credits-speed * 0.1 ease;
-
-    &--show {
-      opacity: 1;
-      transition-delay: $credits-speed * 0.1;
-      animation: credits-wiggle 200ms infinite $credits-speed * 0.1,
-                 credits-flash 2200ms infinite $credits-speed * 0.1;
-    }
-  }
-
-  &-group {
-    &-credit,
-    &-sub {
-      position: relative;
-      @include v-rule(margin-bottom, $credits-margin);
-      color: $color-credits;
-      background: linear-gradient($color-credits-top, $color-credits-bottom);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-
-      .no-textstroke & {
-        background: none;
-        // Just in case
-        -webkit-background-clip: border-box;
-        -webkit-text-fill-color: currentcolor;
-      }
-
-      // Background clip text fill makes shadows not work, so put them in
-      // an :after element
-      &:after {
-        content: attr(data-text);
-        position: absolute;
-        z-index: -1;
-        width: 100%;
-        top: 0;
-        left: 0;
-        background: none;
-        text-shadow: $credits-shadow-offset
-                     $credits-shadow-offset
-                     $credits-shadow-blur #000;
-      }
-    }
-
-    &-credit {
-      font-weight: 800;
-      text-transform: uppercase;
-
-      > span {
-        @include v-rule(font-size, $credits-fsize * 0.8);
-      }
-    }
-
-    &-sub {
-      @include v-rule(font-size, $credits-fsize-small);
-    }
-  }
-
-  &-final {
-    @include centerize;
-
-    &-link {
-      display: inline-block;
-      @include v-rule(width, $credits-link-size);
-      @include v-rule(height, $credits-link-size);
-      @include v-rule(margin, $credits-link-margin);
-      background-size: 100% 100%;
-
-      &:hover {
-        opacity: 0.8;
-      }
-
-      &--website {
-        background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/161676/website.svg");
-      }
-
-      &--github {
-        background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/161676/github.svg");
-      }
-
-      &--twitter {
-        background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/161676/twitter.svg");
-      }
-
-      &--codepen {
-        background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/161676/codepen.svg");
-      }
-    }
-  }
-}
 
 .grain {
   @keyframes grain-wiggle {
@@ -415,7 +249,7 @@ body {
   left: -50vw;
   height: 200vh;
   width: 200vw;
-  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/161676/grain.png");
+  // background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/161676/grain.png");
   animation: grain-wiggle 5s steps(10) infinite;
   pointer-events: none;
 }
@@ -755,6 +589,18 @@ body {
       0%        { transform: translateX(30%); }
       45%, 100% { transform: translateX(0%);  }
     }
+
+    // --- Custom keyframes for full-s2-h and full-s2-a with delay ---
+    @keyframes full-s2-h {
+      0%, 55%   { transform: translateY(200%); }
+      86%, 100% { transform: translateY(0%);   }
+    }
+    @keyframes full-s2-a {
+      0%, 58%   { transform: translateY(200%); }
+      87%, 100% { transform: translateY(0%);   }
+    }
+
+    // The original S2 (for remaining S2 letters)
     @keyframes full-s2 {
       0%, 40%   { transform: translateY(200%); }
       80%, 100% { transform: translateY(0%);   }
